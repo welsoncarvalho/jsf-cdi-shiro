@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:pr="http://primefaces.org/ui" contentType="text/html">
+
+	<div class="card-panel">
+		<div class="row">
+			<div class="input-field col s12">
+				<h:inputText id="idfilterName" style="width: 100%;"
+							  value="#{groupController.filter.name}" />
+				<label for="idFilterName">Name: </label>
+			</div>
+		</div>
+
+		<br />
+
+		<div style="margin-top: 10px; text-align: end;">
+			<pr:commandLink value="New"
+							action="#{groupController.add}"
+							process="@this"
+							styleClass="waves-effect waves-light btn"
+							style="margin-right: 10px;"
+							oncomplete="$('#modalGroup').modal('open')"
+							update="panelGroup" />
+			<pr:commandLink value="Search"
+							action="#{groupController.search}"
+							process="idfilterName @this"
+							styleClass="waves-effect waves-light btn"
+							update="panelGrid" />
+		</div>
+	</div>
+	
+	<div class="card-panel">
+		<div class="row">
+			<h:panelGrid id="panelGrid">
+				
+				<h:dataTable id="tableGroup"
+							 value="#{groupController.groupPaginator.list}"
+							 var="group">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="ID"/>
+						</f:facet>
+						<h:outputText value="#{group.id}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Name"/>
+						</f:facet>
+						<h:outputText value="#{group.name}" />
+					</h:column>
+				</h:dataTable>
+				
+				<ul class="pagination">
+				    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+				    <li class="active"><a href="#!">1</a></li>
+				    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+				  </ul>
+			</h:panelGrid>
+		</div>
+	</div>
+
+	<div id="modalGroup" class="modal modal-fixed-footer" style="height: 280px;">
+	
+		<h:panelGroup id="panelGroup">
+	
+			<div class="modal-content">
+				<h4>Group</h4>
+				<br />
+				<div class="input-field col s12">
+					<h:inputText id="idGroupName" style="width: 100%;"
+						value="${groupController.group.name}" />
+					<label for="idGroupName" style="left: 0px;">Name: </label>
+				</div>
+			</div>
+			
+			<div class="modal-footer">
+				<pr:commandLink value="Save"
+								styleClass="waves-effect waves-light btn"
+								action="#{groupController.save}"
+								oncomplete="$('#modalGroup').modal('close')"
+								process="panelGroup"
+								update="panelGrid" />
+		    </div>
+	    
+	    </h:panelGroup>
+	</div>
+	
+	<h:outputScript>
+		$(document).ready(function(){
+		    $('#modalGroup').modal();
+		});
+	</h:outputScript>
+
+</f:view>
