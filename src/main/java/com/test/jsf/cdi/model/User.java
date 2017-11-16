@@ -1,14 +1,12 @@
 package com.test.jsf.cdi.model;
 
 import java.io.Serializable;
-import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Version;
@@ -44,9 +42,9 @@ public class User extends AbstractModel implements Serializable {
     @Column(name = "phone")
     private Long phone;
     
-    @ManyToMany
-    private List<Group> groups;
-
+    @Column(name = "id_group")
+    private Long idGroup;
+    
     public Long getId() {
         return id;
     }
@@ -103,12 +101,12 @@ public class User extends AbstractModel implements Serializable {
         this.phone = phone;
     }
     
-    public List<Group> getGroups() {
-        return groups;
+    public Long getIdGroup() {
+        return idGroup;
     }
     
-    public void setGroups(List<Group> groups) {
-        this.groups = groups;
+    public void setIdGroup(Long idGroup) {
+        this.idGroup = idGroup;
     }
     
     @Override

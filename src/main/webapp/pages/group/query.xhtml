@@ -40,18 +40,31 @@
 				<h:dataTable id="tableGroup"
 							 value="#{groupController.groupPaginator.list}"
 							 var="group">
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="ID"/>
-						</f:facet>
-						<h:outputText value="#{group.id}" />
-					</h:column>
-					<h:column>
-						<f:facet name="header">
-							<h:outputText value="Name"/>
-						</f:facet>
-						<h:outputText value="#{group.name}" />
-					</h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ID"/>
+                                        </f:facet>
+                                        <h:outputText value="#{group.id}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Name"/>
+                                        </f:facet>
+                                        <h:outputText value="#{group.name}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Action" />
+                                        </f:facet>
+                                        <pr:commandLink id="btnEdit"
+                                            title="Edit"
+                                            action="#{groupController.edit(group)}"
+                                            oncomplete="$('#modalGroup').modal('open')"
+                                            update="panelGroup"
+                                            process="@this">
+                                            <i class="tiny material-icons">edit</i>
+                                        </pr:commandLink>
+                                    </h:column>
 				</h:dataTable>
 				
 				<ul class="pagination">

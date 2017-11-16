@@ -51,6 +51,14 @@ public class GenericDaoImpl<T extends AbstractModel, I> implements GenericDao<T,
         setParametersOnQuery(query, params);
         return (Long) query.getSingleResult();
     }
+    
+    @SuppressWarnings("unchecked")
+    protected List<T> findByParameters(String hql, Map<String, Object> params) {
+        
+        Query query = this.em.createQuery(hql);
+        setParametersOnQuery(query, params);
+        return query.getResultList();
+    }
 
     @SuppressWarnings("unchecked")
     protected List<T> findByParametersPaginator(String hql, Map<String, Object> params, int first, int max) {
@@ -62,6 +70,7 @@ public class GenericDaoImpl<T extends AbstractModel, I> implements GenericDao<T,
         return query.getResultList();
     }
 
+    @SuppressWarnings("unchecked")
     protected T findSingleByParameters(String hql, Map<String, Object> params) {
         
         Query query = this.em.createQuery(hql);

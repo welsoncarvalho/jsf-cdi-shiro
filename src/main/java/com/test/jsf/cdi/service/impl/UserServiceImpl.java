@@ -24,5 +24,15 @@ public class UserServiceImpl implements UserService {
     public User findByLogin(String login) {
         return userDao.findByLogin(login);
     }
+    
+    @Override
+    public List<User> findByFilter(User filter) {
+        return userDao.findByFilter(filter);
+    }
+    
+    @Override
+    public void save(User user) {
+        userDao.saveOrUpdate(user);
+    }
 
 }

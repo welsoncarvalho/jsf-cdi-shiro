@@ -51,4 +51,14 @@ public class GroupDaoImpl extends GenericDaoImpl<Group, Long> implements GroupDa
         }
     }
     
+    @Override
+    public Group findWithFunctionalities(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        
+        String hql = "From Group g join fetch g.functionalities f where g.id = :id";
+        
+        return findSingleByParameters(hql, params);
+    }
+    
 }

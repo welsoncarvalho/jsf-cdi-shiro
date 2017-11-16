@@ -26,7 +26,12 @@ public class LoginController extends AbstractController {
         UsernamePasswordToken token = new UsernamePasswordToken(getUser().getLogin(), getUser().getPassword());
         Subject subUser = SecurityUtils.getSubject();
         subUser.login(token);
-        return "/pages/group/group";
+        return "/pages/home.xhtml?faces-redirect=true";
+    }
+    
+    public String logout() {
+        SecurityUtils.getSubject().logout();
+        return "/login.xhtml?faces-redirect=true";
     }
     
     public User getUser() {

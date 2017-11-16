@@ -39,6 +39,10 @@ public class GroupController extends AbstractConversationController {
         this.group = new Group();
     }
     
+    public void edit(Group group) {
+        this.group = group;
+    }
+    
     public void cancel() {
         this.group = null;
     }

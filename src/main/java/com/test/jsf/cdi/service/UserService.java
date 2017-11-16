@@ -9,4 +9,8 @@ public interface UserService {
     List<User> list();
     
     User findByLogin(String login);
+    
+    List<User> findByFilter(User filter);
+    
+    void save(User user);
 }

@@ -30,4 +30,14 @@ public class GroupServiceImpl implements GroupService {
         groupDao.saveOrUpdate(group);
     }
     
+    @Override
+    public List<Group> list() {
+        return groupDao.listAll();
+    }
+    
+    @Override
+    public Group findWithFunctionalities(Long id) {
+        return groupDao.findWithFunctionalities(id);
+    }
+    
 }

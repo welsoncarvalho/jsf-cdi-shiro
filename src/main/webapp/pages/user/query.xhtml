@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:t="http://myfaces.apache.org/tomahawk"
+	xmlns:pr="http://primefaces.org/ui" contentType="text/html">
+	
+	<div class="card-panel">
+		<div class="row">
+			<div class="input-field col s6">
+				<h:inputText id="idFilterName" style="width: 100%;"
+							  value="#{userController.filter.name}" />
+				<label for="idFilterName">Name: </label>
+			</div>
+			<div class="input-field col s6">
+				<h:inputText id="idFilterEmail" style="width: 100%;"
+							  value="#{userController.filter.email}" />
+				<label for="idFilterEmail">Email: </label>
+			</div>
+		</div>
+
+		<br />
+
+		<div style="margin-top: 10px; text-align: end;">
+			<pr:commandLink value="New"
+							action="#{userController.add}"
+							process="@this"
+							styleClass="waves-effect waves-light btn"
+							style="margin-right: 10px;"
+							oncomplete="$('#modalUser').modal('open'); $('select').material_select();"
+							update="panelUser" />
+			<pr:commandLink value="Search"
+							action="#{userController.search}"
+							process="idFilterName idFilterEmail @this"
+							styleClass="waves-effect waves-light btn"
+							update="panelGrid" />
+		</div>
+	</div>
+	
+	<div class="card-panel">
+		<div class="row">
+			<h:panelGrid id="panelGrid">
+				
+				<h:dataTable id="tableUser"
+							 value="#{userController.users}"
+							 var="user">
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="ID"/>
+                                        </f:facet>
+                                        <h:outputText value="#{user.id}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Name"/>
+                                        </f:facet>
+                                        <h:outputText value="#{user.name}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="Action" />
+                                        </f:facet>
+                                        <pr:commandLink id="btnEdit"
+                                            title="Edit"
+                                            action="#{userController.edit(user)}"
+                                            oncomplete="$('#modalUser').modal('open'); $('select').material_select();"
+                                            update="panelUser"
+                                            process="@this">
+                                            <i class="tiny material-icons">edit</i>
+                                        </pr:commandLink>
+                                    </h:column>
+				</h:dataTable>
+				
+				<ul class="pagination">
+				    <li class="disabled"><a href="#!"><i class="material-icons">chevron_left</i></a></li>
+				    <li class="active"><a href="#!">1</a></li>
+				    <li class="waves-effect"><a href="#!"><i class="material-icons">chevron_right</i></a></li>
+				  </ul>
+			</h:panelGrid>
+		</div>
+	</div>
+	
+	<div id="modalUser" class="modal modal-fixed-footer" style="height: 460px;">
+	
+		<h:panelGroup id="panelUser">
+	
+			<div class="modal-content">
+				<h4>User</h4>
+				<br />
+				<div class="row">
+					<div class="input-field col s6">
+						<h:inputText id="idUserName" style="width: 100%;"
+							value="${userController.user.name}" />
+						<label for="idUserName" class="#{(not empty userController.user.name) ? 'active' : ''}">Name: </label>
+					</div>
+					<div class="input-field col s6">
+						<h:inputText id="idUserEmail" style="width: 100%;"
+							value="${userController.user.email}" />
+						<label for="idUserEmail" class="#{(not empty userController.user.email) ? 'active' : ''}">Email: </label>
+					</div>
+					<div class="input-field col s6">
+						<h:inputText id="idUserLogin" style="width: 100%;"
+							value="${userController.user.login}" />
+						<label for="idUserLogin" class="#{(not empty userController.user.login) ? 'active' : ''}">Login: </label>
+					</div>
+					<div class="input-field col s6">
+						<h:inputSecret id="idUserPassword" style="width: 100%;"
+							value="${userController.user.password}" />
+						<label for="idUserPassword">Password: </label>
+					</div>
+					<div class="input-field col s12">
+						<h:selectOneMenu id="idUserGroup" style="width: 100%;"
+							value="#{userController.user.idGroup}">
+							<f:selectItem itemLabel="Select..." itemValue="#{null}" />
+							<f:selectItems value="#{userController.groups}" var="group"
+								itemLabel="#{group.name}"
+								itemValue="#{group.id}" />	
+						</h:selectOneMenu>
+						<label for="idUserGroup">Group: </label>
+					</div>
+				</div>
+			</div>
+			
+			<div class="modal-footer">
+				<pr:commandLink value="Save"
+								styleClass="waves-effect waves-light btn"
+								action="#{userController.save}"
+								oncomplete="$('#modalUser').modal('close')"
+								process="panelUser"
+								update="panelGrid" />
+		    </div>
+	    
+	    </h:panelGroup>
+	</div>
+	
+	<h:outputScript>
+		$(document).ready(function(){
+			$('select').material_select();
+		    $('#modalUser').modal();
+		});
+	</h:outputScript>
+	
+</f:view>

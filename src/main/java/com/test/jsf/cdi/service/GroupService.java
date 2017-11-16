@@ -12,4 +12,8 @@ public interface GroupService {
     
     void save(Group group);
     
+    List<Group> list();
+    
+    Group findWithFunctionalities(Long id);
+    
 }

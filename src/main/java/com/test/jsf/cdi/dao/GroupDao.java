@@ -10,4 +10,6 @@ public interface GroupDao extends GenericDao<Group, Long> {
     
     List<Group> findByFilter(Group filter, int first, int max);
     
+    Group findWithFunctionalities(Long id);
+    
 }
